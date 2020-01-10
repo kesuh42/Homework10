@@ -1,4 +1,5 @@
 var inquirer = require("inquirer")
+var employeeArray = []
 
 class Employee {
     constructor(name, ID, email) {
@@ -51,6 +52,143 @@ class Intern extends Employee {
     }
 }
 
+var engineerQuestions = 
+[
+    {
+        type: "input",
+        name: "name",
+        message: "What is this employee's name?"
+    },
+    {
+        type: "input",
+        name: "ID",
+        message: "What is this employee's ID?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is this employee's email?"
+    },
+    {
+        type: "input",
+        name: "github",
+        message: "What is this employee's github username?"
+    },
+    {
+        type: "confirm",
+        name: "additional",
+        message: "Do you have additional team members to add?"
+    }
+]
+var internQuestions = 
+[
+    {
+        type: "input",
+        name: "name",
+        message: "What is this employee's name?"
+    },
+    {
+        type: "input",
+        name: "ID",
+        message: "What is this employee's ID?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is this employee's email?"
+    },
+    {
+        type: "input",
+        name: "school",
+        message: "What school do this employee go to?"
+    },
+    {
+        type: "confirm",
+        name: "additional",
+        message: "Do you have additional team members to add?"
+    }
+]
 
-var Kevin = new Intern("Kevin", "1", "kesuh42", "NU")
-console.log(Kevin.getRole())
+inquirer.prompt([
+    {
+        type: "input",
+        name: "name",
+        message: "What is your name?"
+    },
+    {
+        type: "input",
+        name: "ID",
+        message: "What is your ID?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is your email?"
+    },
+    {
+        type: "input",
+        name: "officenumber",
+        message: "What is your office number?"
+    },
+    {
+        type: "confirm",
+        name: "additional",
+        message: "Do you have additional team members to add?"
+    },
+]).then(async function(data){
+    var manager = new Manager(data.name, data.ID, data.email, data.officenumber)
+    employeeArray.push(manager)
+
+    if (data.additional) {
+        var {role} = await inquirer.prompt({
+            type: "list",
+            name: "role",
+            choices: ["engineer", "intern"],
+            message: "What is this employee's role?"
+        })
+        postmanagerLoop(role)
+    }
+    else {
+        console.log("onion")
+    }
+})
+
+async function postmanagerLoop(role) {
+    if (role === "engineer") {
+        var engineerData = await inquirer.prompt(engineerQuestions)
+        var engineerObj = new Engineer(engineerData.name, engineerData.ID, engineerData.email, engineerData.Github)
+        employeeArray.push(engineerObj)
+        if (engineerData.additional) {
+            var data = await inquirer.prompt({
+                type: "list",
+                name: "role",
+                choices: ["engineer", "intern"],
+                message: "What is this employee's role?"
+            })
+            postmanagerLoop(data.role)
+        }
+        else {
+            console.log("Exiting the loop, array should be finished")
+            console.log(employeeArray)
+        }
+    }
+    if (role === "intern") {
+        var internData = await inquirer.prompt(internQuestions)
+        var internObj = new Intern(internData.name, internData.ID, internData.email, internData.school)
+        employeeArray.push(internObj)
+        if (internData.additional) {
+            var data = await inquirer.prompt({
+                type: "list",
+                name: "role",
+                choices: ["engineer", "intern"],
+                message: "What is this employee's role?"
+            })
+            postmanagerLoop(data.role)
+        }
+        else {
+            console.log("Exiting the loop, array should be finished")
+            console.log(employeeArray)
+        }
+    }
+}
+
