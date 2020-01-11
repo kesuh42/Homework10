@@ -154,6 +154,54 @@ inquirer.prompt([
 })
 
 async function postmanagerLoop(role) {
+    function constructCardHTML(employeeObj) {
+        if (employeeObj instanceof Manager) {
+            return `
+            <div class="card">
+            <div class="cardhead">
+                <h4><b>${employeeObj.name}</b></h4>
+                <p>Manager</p>
+            </div>
+            <div class="cardbody">
+                <p>Id: ${employeeObj.ID}</p>
+                <p>Email: ${employeeObj.email}</p>
+                <p>Office Number: ${employeeObj.officeNumber}</p>
+
+            </div>
+        </div>`
+            
+        }
+        else if (employeeObj instanceof Engineer) {
+            return `
+            <div class="card">
+            <div class="cardhead">
+                <h4><b>${employeeObj.name}</b></h4>
+                <p>Engineer</p>
+            </div>
+            <div class="cardbody">
+                <p>Id: ${employeeObj.ID}</p>
+                <p>Email: ${employeeObj.email}</p>
+                <p>Github: ${employeeObj.Github}</p>
+
+            </div>
+        </div>`
+        }
+        else if (employeeObj instanceof Intern) {
+            return `
+            <div class="card">
+            <div class="cardhead">
+                <h4><b>${employeeObj.name}</b></h4>
+                <p>Intern</p>
+            </div>
+            <div class="cardbody">
+                <p>Id: ${employeeObj.ID}</p>
+                <p>Email: ${employeeObj.email}</p>
+                <p>School: ${employeeObj.school}</p>
+
+            </div>
+        </div>`
+        }
+    }
     if (role === "engineer") {
         var engineerData = await inquirer.prompt(engineerQuestions)
         var engineerObj = new Engineer(engineerData.name, engineerData.ID, engineerData.email, engineerData.Github)
@@ -170,6 +218,7 @@ async function postmanagerLoop(role) {
         else {
             console.log("Exiting the loop, array should be finished. Html should be built here using the array")
             console.log(employeeArray)
+            console.log(constructCardHTML(employeeArray[0]))
         }
     }
     if (role === "intern") {
@@ -188,6 +237,7 @@ async function postmanagerLoop(role) {
         else {
             console.log("Exiting the loop, array should be finished. Html should be built here using the array")
             console.log(employeeArray)
+            console.log(constructCardHTML(employeeArray[0]))
         }
     }
 }
