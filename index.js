@@ -202,6 +202,11 @@ async function postmanagerLoop(role) {
         </div>`
         }
     }
+    // function generateFinalHTML(array) {
+    //     for (i of array) {
+
+    //     }
+    // }
     if (role === "engineer") {
         var engineerData = await inquirer.prompt(engineerQuestions)
         var engineerObj = new Engineer(engineerData.name, engineerData.ID, engineerData.email, engineerData.Github)
