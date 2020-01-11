@@ -1,4 +1,5 @@
 var inquirer = require("inquirer")
+var fs = require("fs")
 var employeeArray = []
 
 class Employee {
@@ -202,11 +203,30 @@ async function postmanagerLoop(role) {
         </div>`
         }
     }
-    // function generateFinalHTML(array) {
-    //     for (i of array) {
+    function generateFinalHTML(array) {
+        var templateHTML = `
+        <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Coding Team</title>
+            <link rel="stylesheet" href="assets/style.css">
+        </head>
 
-    //     }
-    // }
+        <body>
+            <header>
+                My Team
+            </header>
+`
+        for (i of array) {
+            templateHTML += constructCardHTML(i)
+        }
+        templateHTML += `
+        
+        </body>
+    </html>`
+
+        return templateHTML
+    }
     if (role === "engineer") {
         var engineerData = await inquirer.prompt(engineerQuestions)
         var engineerObj = new Engineer(engineerData.name, engineerData.ID, engineerData.email, engineerData.Github)
@@ -223,7 +243,13 @@ async function postmanagerLoop(role) {
         else {
             console.log("Exiting the loop, array should be finished. Html should be built here using the array")
             console.log(employeeArray)
-            console.log(constructCardHTML(employeeArray[0]))
+            console.log(generateFinalHTML(employeeArray))
+            fs.writeFile("index.html", generateFinalHTML(employeeArray), function(err) {
+                if (err) {
+                    console.log(err)
+                    return
+                }
+            })
         }
     }
     if (role === "intern") {
@@ -242,7 +268,13 @@ async function postmanagerLoop(role) {
         else {
             console.log("Exiting the loop, array should be finished. Html should be built here using the array")
             console.log(employeeArray)
-            console.log(constructCardHTML(employeeArray[0]))
+            console.log(generateFinalHTML(employeeArray))
+            fs.writeFile("index.html", generateFinalHTML(employeeArray), function(err) {
+                if (err) {
+                    console.log(err)
+                    return
+                }
+            })
         }
     }
 }
