@@ -149,7 +149,7 @@ inquirer.prompt([
         postmanagerLoop(role)
     }
     else {
-        console.log("onion")
+        console.log("Your team should definitely consist of more than just a manager, please run the code again once you have an actual team. Dumb idiot.")
     }
 })
 
@@ -168,7 +168,7 @@ async function postmanagerLoop(role) {
             postmanagerLoop(data.role)
         }
         else {
-            console.log("Exiting the loop, array should be finished")
+            console.log("Exiting the loop, array should be finished. Html should be built here using the array")
             console.log(employeeArray)
         }
     }
@@ -186,7 +186,7 @@ async function postmanagerLoop(role) {
             postmanagerLoop(data.role)
         }
         else {
-            console.log("Exiting the loop, array should be finished")
+            console.log("Exiting the loop, array should be finished. Html should be built here using the array")
             console.log(employeeArray)
         }
     }
