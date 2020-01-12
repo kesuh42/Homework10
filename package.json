@@ -1,0 +1,29 @@
+{
+  "name": "homework10",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "inquirer": "^7.0.3",
+    "jest": "^24.9.0",
+    "jest-cli": "^24.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --env=node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kesuh42/Homework10.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kesuh42/Homework10/issues"
+  },
+  "homepage": "https://github.com/kesuh42/Homework10#readme"
+}
